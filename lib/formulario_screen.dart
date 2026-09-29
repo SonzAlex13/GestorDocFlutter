@@ -11,7 +11,6 @@ class FormularioScreen extends StatefulWidget {
 }
 
 class _FormularioScreenState extends State<FormularioScreen> {
-  // 1. Clave global para manejar el estado del formulario
   final _formKey = GlobalKey<FormBuilderState>();
 
   @override
@@ -26,7 +25,6 @@ class _FormularioScreenState extends State<FormularioScreen> {
           key: _formKey,
           child: Column(
             children: [
-              // 2. Campo para el nombre del cliente
               FormBuilderTextField(
                 name: 'cliente',
                 decoration: const InputDecoration(labelText: 'Nombre del Cliente'),
@@ -38,8 +36,6 @@ class _FormularioScreenState extends State<FormularioScreen> {
                 },
               ),
               const SizedBox(height: 20),
-
-              // 3. Campo para la fecha
               FormBuilderDateTimePicker(
                 name: 'fecha',
                 inputType: InputType.date,
@@ -47,20 +43,15 @@ class _FormularioScreenState extends State<FormularioScreen> {
                 initialValue: DateTime.now(),
               ),
               const SizedBox(height: 30),
-
-              // 4. Botón para generar el PDF
               ElevatedButton(
                 onPressed: () {
-                  // Validar y guardar el formulario
                   if (_formKey.currentState?.saveAndValidate() ?? false) {
                     final formData = _formKey.currentState?.value;
                     final nombreCliente = formData?['cliente'] as String;
                     final fechaReporte = formData?['fecha'] as DateTime;
                     
-                    // Convertir la fecha a texto
                     final fechaTexto = "${fechaReporte.day}/${fechaReporte.month}/${fechaReporte.year}";
 
-                    // Navegar a la pantalla del PDF pasando los datos
                     Navigator.push(
                       context,
                       MaterialPageRoute(
