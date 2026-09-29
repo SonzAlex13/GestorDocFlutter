@@ -2,7 +2,8 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'dart:typed_data';
 
-Future<Uint8List> generarReportePDF() async {
+// 1. La función ahora recibe parámetros dinámicos
+Future<Uint8List> generarReportePDF(String cliente, String fecha) async {
   final pdf = pw.Document();
 
   pdf.addPage(
@@ -18,8 +19,9 @@ Future<Uint8List> generarReportePDF() async {
             ),
             pw.Divider(),
             pw.SizedBox(height: 10),
-            pw.Text('Cliente: Empresa S.A. de C.V.', style: const pw.TextStyle(fontSize: 14)),
-            pw.Text('Fecha: 21 de Agosto de 2026', style: const pw.TextStyle(fontSize: 14)),
+            // 2. Usar las variables inyectadas en lugar de texto fijo
+            pw.Text('Cliente: $cliente', style: const pw.TextStyle(fontSize: 14)),
+            pw.Text('Fecha: $fecha', style: const pw.TextStyle(fontSize: 14)),
             pw.SizedBox(height: 20),
             pw.TableHelper.fromTextArray(
               context: context,

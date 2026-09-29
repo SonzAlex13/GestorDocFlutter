@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:printing/printing.dart';
+import 'formulario_screen.dart'; // Importamos la pantalla del formulario
 import 'pdf_generator.dart';
 
 void main() {
@@ -12,13 +13,22 @@ class MiApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: PantallaReporte(),
+      // La app ahora inicia en el formulario
+      home: FormularioScreen(), 
     );
   }
 }
 
-class PantallaReporte extends StatelessWidget {
-  const PantallaReporte({Key? key}) : super(key: key);
+// Nueva pantalla que requiere datos para construir el PDF
+class PantallaReporteDinamico extends StatelessWidget {
+  final String cliente;
+  final String fecha;
+
+  const PantallaReporteDinamico({
+    Key? key,
+    required this.cliente,
+    required this.fecha,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +37,8 @@ class PantallaReporte extends StatelessWidget {
         title: const Text('Previsualización de Reporte'),
       ),
       body: PdfPreview(
-        build: (format) => generarReportePDF(),
+        // Llamamos a la función pasando los parámetros dinámicos
+        build: (format) => generarReportePDF(cliente, fecha),
       ),
     );
   }
