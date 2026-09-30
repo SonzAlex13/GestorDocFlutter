@@ -1,11 +1,7 @@
 {
   "name": "Flutter Dev Environment",
   "image": "mcr.microsoft.com/devcontainers/universal:2",
-  "features": {
-    "ghcr.io/devcontainers/features/desktop-lite:1": {}
-  },
-  "onCreateCommand": "git clone https://github.com/flutter/flutter.git -b stable $HOME/flutter",
-  "postCreateCommand": "echo 'export PATH=\"$PATH:$HOME/flutter/bin\"' >> ~/.bashrc && export PATH=\"$PATH:$HOME/flutter/bin\" && flutter doctor",
+  "postCreateCommand": "if [ ! -d \"$HOME/flutter\" ]; then git clone https://github.com/flutter/flutter.git -b stable $HOME/flutter; fi && echo 'export PATH=\"$PATH:$HOME/flutter/bin\"' >> ~/.bashrc",
   "customizations": {
     "vscode": {
       "extensions": [
